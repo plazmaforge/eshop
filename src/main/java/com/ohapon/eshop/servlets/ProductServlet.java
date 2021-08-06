@@ -1,9 +1,13 @@
 package com.ohapon.eshop.servlets;
 
+import com.ohapon.eshop.entities.Product;
+import com.ohapon.eshop.services.ProductService;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class ProductServlet extends HttpServlet {
 
@@ -15,8 +19,10 @@ public class ProductServlet extends HttpServlet {
         res.setContentType("text/html;charset=utf-8");
 
         // TODO
-        for (int i = 1; i <= 10; i++) {
-            res.getWriter().println("Product " + i + "</br>");
+        ProductService service = new ProductService();
+        List<Product> products = service.findAll();
+        for (Product product: products) {
+            res.getWriter().println("" + product.getId() + " " + product.getName() + "</br>");
         }
     }
 
