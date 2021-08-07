@@ -6,8 +6,15 @@
 </head>
 <body>
 
+<nav>
+    <div>
+        <a href="#">OnlineShop</a>
+        <a href="/product/add">Add product</a>
+    </div>
+</nav>
+
 <div class="container">
-    <h1 class="display-1">Shop list</h1>
+    <h1>Shop list</h1>
 <table>
     <thead>
     <tr>
@@ -21,7 +28,7 @@
     <#list products as product>
     <tr>
         <td>${product.id}</td>
-        <td>${product.getName()}</td>
+        <td>${product.name}</td>
         <td>${product.price}</td>
     </tr>
     </#list>

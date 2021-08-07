@@ -11,13 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductServlet extends HttpServlet {
+public class ProductsServlet extends HttpServlet {
 
     private PageGenerator pageGenerator = PageGenerator.instance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        res.setContentType("text/html;charset=utf-8");
 
         ProductService service = new ProductService();
         List<Product> products = service.findAll();
@@ -28,18 +27,6 @@ public class ProductServlet extends HttpServlet {
         String page = pageGenerator.getPage("products.html", parametersMap);
         res.getWriter().println(page);
 
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        // TODO
-        res.getWriter().println("PUT: Product");
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        // TODO
-        res.getWriter().println("DELETE: Product");
     }
 
 }
