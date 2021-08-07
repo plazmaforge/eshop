@@ -1,4 +1,4 @@
-package com.ohapon.eshop.entities;
+package com.ohapon.eshop.entity;
 
 import java.util.Date;
 

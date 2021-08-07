@@ -1,6 +1,6 @@
-package com.ohapon.eshop.services;
+package com.ohapon.eshop.service;
 
-import com.ohapon.eshop.entities.Product;
+import com.ohapon.eshop.entity.Product;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,15 +21,15 @@ public class ProductService {
         return list;
     }
 
-    public void addProduct(Product product) {
+    public void add(Product product) {
         // TODO
     }
 
-    public void updateProduct(Product product) {
+    public void update(Product product) {
         // TODO
     }
 
-    public void removeProduct(Long productId) {
+    public void remove(Long productId) {
         // TODO
     }
 
