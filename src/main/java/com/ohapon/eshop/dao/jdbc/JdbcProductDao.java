@@ -10,9 +10,11 @@ import java.util.List;
 
 public class JdbcProductDao implements ProductDao {
 
-    private static final String FIND_ALL_QUERY = "SELECT id, name, price, created_date FROM product";
+    private static final String FIND_ALL_QUERY = "SELECT id, name, price, created_date FROM product ORDER BY id";
     private static final String FIND_ONE_QUERY = "SELECT id, name, price, created_date FROM product WHERE id = ?";
     private static final String INSERT_QUERY = "INSERT INTO product (id, name, price, created_date) VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_QUERY = "UPDATE product SET name = ?, price = ?, created_date = ? WHERE id = ?";
+    private static final String DELETE_QUERY = "DELETE FROM product WHERE id = ?";
 
     private ConnectionFactory connectionFactory;
     public JdbcProductDao(ConnectionFactory connectionFactory) {
@@ -82,8 +84,7 @@ public class JdbcProductDao implements ProductDao {
     @Override
     public void add(Product product) {
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERT_QUERY);
-             ) {
+             PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
 
             statement.setLong(1, product.getId());
             statement.setString(2, product.getName());
@@ -99,12 +100,33 @@ public class JdbcProductDao implements ProductDao {
 
     @Override
     public void update(Product product) {
-        // TODO
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
+
+            statement.setString(1, product.getName());
+            statement.setDouble(2, product.getPrice());
+            statement.setDate(3, new java.sql.Date(product.getDate().getTime()));
+            statement.setLong(4, product.getId());
+
+            statement.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Cannot update product in db: productId = " + product.getId(), e);
+        }
     }
 
     @Override
     public void remove(Long productId) {
-        // TODO
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
+
+            statement.setLong(4, productId);
+
+            statement.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Cannot delete product from db: productId = " + productId, e);
+        }
     }
 
     private Connection getConnection() throws SQLException {

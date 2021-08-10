@@ -17,6 +17,10 @@ public class ProductService {
         return getProductDao().findAll();
     }
 
+    public Product findById(Long productId) {
+        return getProductDao().findById(productId);
+    }
+
     public void add(Product product) {
         getProductDao().add(product);
     }
