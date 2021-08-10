@@ -27,7 +27,6 @@ public class Main {
         DBInitializer dbInitializer = new DBInitializer(connectionFactory);
         dbInitializer.init();
 
-
         ProductsServlet productsServlet = new ProductsServlet();
         productsServlet.setServiceFactory(serviceFactory);
 

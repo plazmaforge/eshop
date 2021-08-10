@@ -20,7 +20,7 @@ public class ProductsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 
-        ProductService service = serviceFactory.getProductService(); //new ProductService();
+        ProductService service = serviceFactory.getProductService();
         List<Product> products = service.findAll();
 
         Map<String, Object> parametersMap = new HashMap<>();

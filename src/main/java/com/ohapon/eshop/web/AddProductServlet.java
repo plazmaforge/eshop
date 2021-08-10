@@ -40,9 +40,9 @@ public class AddProductServlet extends HttpServlet {
         productService.add(product);
 
         Map<String, Object> parametersMap = new HashMap<>();
-        parametersMap.put("product", product);
+        parametersMap.put("message", "New Product '" + product.getName() + "' was added");
 
-        String page = pageGenerator.getPage("resultProduct.html", parametersMap);
+        String page = pageGenerator.getPage("message.html", parametersMap);
         res.getWriter().println(page);
 
     }
