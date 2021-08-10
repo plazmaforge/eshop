@@ -8,15 +8,21 @@
 
 <div class="container">
     <h1>Add new product</h1>
-
     <form action="/product/add" method="POST">
-        Name: <input type="text" name="name"/>
-        <br>
-        Price: <input type="text" name="price"/>
-        <br>
-        <input type="submit" value="Add">
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" name="name"/></td>
+            </tr>
+            <tr>
+                <td>Price:</td>
+                <td><input type="text" name="price"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Add"></td>
+            </tr>
+        </table>
     </form>
-
 </div>
 
 </body>
