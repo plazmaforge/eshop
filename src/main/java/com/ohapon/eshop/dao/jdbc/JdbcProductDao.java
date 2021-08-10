@@ -3,11 +3,18 @@ package com.ohapon.eshop.dao.jdbc;
 import com.ohapon.eshop.dao.ProductDao;
 import com.ohapon.eshop.entity.Product;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class JdbcProductDao implements ProductDao {
+
+    public JdbcProductDao() {
+    }
 
     @Override
     public List<Product> findAll() {

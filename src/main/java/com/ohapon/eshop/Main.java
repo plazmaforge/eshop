@@ -1,5 +1,6 @@
 package com.ohapon.eshop;
 
+import com.ohapon.eshop.db.DBInitializer;
 import com.ohapon.eshop.web.AddProductServlet;
 import com.ohapon.eshop.web.ProductsServlet;
 import org.eclipse.jetty.server.Server;
@@ -9,6 +10,9 @@ import org.eclipse.jetty.servlet.ServletHolder;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
+        DBInitializer dbInitializer = new DBInitializer();
+        dbInitializer.init();
 
         ProductsServlet productsServlet = new ProductsServlet();
         AddProductServlet addProductServlet = new AddProductServlet();
