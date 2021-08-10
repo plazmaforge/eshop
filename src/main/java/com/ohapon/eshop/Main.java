@@ -5,6 +5,7 @@ import com.ohapon.eshop.db.DBInitializer;
 import com.ohapon.eshop.service.ServiceFactory;
 import com.ohapon.eshop.service.ServiceFactoryImpl;
 import com.ohapon.eshop.web.AddProductServlet;
+import com.ohapon.eshop.web.DeleteProductServlet;
 import com.ohapon.eshop.web.EditProductServlet;
 import com.ohapon.eshop.web.ProductsServlet;
 import org.eclipse.jetty.server.Server;
@@ -37,10 +38,14 @@ public class Main {
         EditProductServlet editProductServlet = new EditProductServlet();
         editProductServlet.setServiceFactory(serviceFactory);
 
+        DeleteProductServlet deleteProductServlet = new DeleteProductServlet();
+        deleteProductServlet.setServiceFactory(serviceFactory);
+
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(productsServlet), "/");
         context.addServlet(new ServletHolder(addProductServlet), "/product/add");
         context.addServlet(new ServletHolder(editProductServlet), "/product/edit");
+        context.addServlet(new ServletHolder(deleteProductServlet), "/product/delete");
 
         Server server = new Server(8080);
         server.setHandler(context);

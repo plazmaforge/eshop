@@ -120,7 +120,7 @@ public class JdbcProductDao implements ProductDao {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
 
-            statement.setLong(4, productId);
+            statement.setLong(1, productId);
 
             statement.execute();
 
