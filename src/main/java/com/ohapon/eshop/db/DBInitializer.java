@@ -1,7 +1,9 @@
 package com.ohapon.eshop.db;
 
+import com.ohapon.eshop.PropertiesLoader;
 import com.ohapon.eshop.dao.jdbc.ConnectionFactory;
 
+import java.io.*;
 import java.sql.*;
 
 public class DBInitializer {
@@ -23,24 +25,35 @@ public class DBInitializer {
     }
 
     private void createDB(Connection con) throws SQLException {
+        String sql = loadSQL("dbscripts/create_db.sql");
         Statement stm = con.createStatement();
-        stm.execute("CREATE TABLE product (id int, name varchar(100), price float, created_date date)");
+        stm.execute(sql);
         stm.close();
     }
 
     private void populateDB(Connection con) throws SQLException {
-        PreparedStatement pstm = con.prepareStatement("INSERT INTO product (id, name, price, created_date) VALUES (?, ?, ?, ?)");
-        for (int i = 1; i < 20; i++) {
+        String sql = loadSQL("dbscripts/populate_db.sql");
+        Statement stm = con.createStatement();
+        stm.execute(sql);
+    }
 
-            pstm.setInt(1, i);
-            pstm.setString(2, "Product " + i);
-            pstm.setFloat(3, 100 + (i * 10));
-            pstm.setDate(4, new java.sql.Date(2021, 7, 7));
+    private String loadSQL(String path) {
+            try (InputStream is = PropertiesLoader.class.getClassLoader().getResourceAsStream(path)) {
+                return loadSQL(is);
+            } catch (IOException e) {
+                throw new RuntimeException("Can't load SQL script from file: " + path, e);
+            }
+    }
 
-            pstm.execute();
+    private String loadSQL(InputStream is) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        try (Reader reader = new BufferedReader(new InputStreamReader(is))) {
+            int c = 0;
+            while ((c = reader.read()) != -1) {
+                builder.append((char) c);
+            }
         }
-
-        pstm.close();
+        return builder.toString();
     }
 
     private Connection getConnection() throws ClassNotFoundException, SQLException {
