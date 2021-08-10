@@ -1,6 +1,7 @@
 package com.ohapon.eshop.web;
 
 import com.ohapon.eshop.entity.Product;
+import com.ohapon.eshop.service.ProductService;
 import com.ohapon.eshop.service.ServiceFactory;
 
 import javax.servlet.http.HttpServlet;
@@ -32,8 +33,11 @@ public class AddProductServlet extends HttpServlet {
         String name = req.getParameter("name");
         double price = Double.parseDouble(req.getParameter("price"));
 
-        // TODO: Use ProductService
-        Product product = new Product(1, name, price, new Date());
+        long id = (long) (Math.random() * 10);
+        Product product = new Product(id, name, price, new Date());
+
+        ProductService productService = serviceFactory.getProductService();
+        productService.add(product);
 
         Map<String, Object> parametersMap = new HashMap<>();
         parametersMap.put("product", product);

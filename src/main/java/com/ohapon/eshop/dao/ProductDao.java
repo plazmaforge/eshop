@@ -7,6 +7,8 @@ public interface ProductDao {
 
     List<Product> findAll();
 
+    Product findById(Long productId);
+
     void add(Product product);
 
     void update(Product product);
