@@ -1,9 +1,16 @@
 package com.ohapon.eshop.db;
 
+import com.ohapon.eshop.dao.jdbc.ConnectionFactory;
+
 import java.sql.*;
 
 public class DBInitializer {
 
+    private ConnectionFactory connectionFactory;
+
+    public DBInitializer(ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
     public void init() {
         try {
@@ -37,13 +44,7 @@ public class DBInitializer {
     }
 
     private Connection getConnection() throws ClassNotFoundException, SQLException {
-        String url = "jdbc:hsqldb:mem:eshop";
-        String driver = "org.hsqldb.jdbc.JDBCDriver";
-        String user = "sa";
-        String password = "";
-
-        Class.forName(driver);
-        return DriverManager.getConnection(url, user, password);
+        return connectionFactory.getConnection();
     }
 
 }

@@ -13,7 +13,8 @@ import java.util.List;
 
 public class JdbcProductDao implements ProductDao {
 
-    public JdbcProductDao() {
+    private ConnectionFactory connectionFactory;
+    public JdbcProductDao(ConnectionFactory connectionFactory) {
     }
 
     @Override

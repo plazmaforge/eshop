@@ -1,6 +1,7 @@
 package com.ohapon.eshop.web;
 
 import com.ohapon.eshop.entity.Product;
+import com.ohapon.eshop.service.ServiceFactory;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import java.util.Map;
 public class AddProductServlet extends HttpServlet {
 
     private PageGenerator pageGenerator = PageGenerator.instance();
+    private ServiceFactory serviceFactory;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -41,4 +43,7 @@ public class AddProductServlet extends HttpServlet {
 
     }
 
+    public void setServiceFactory(ServiceFactory serviceFactory) {
+        this.serviceFactory = serviceFactory;
+    }
 }

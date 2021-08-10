@@ -9,6 +9,10 @@ public class ProductService {
 
     private ProductDao productDao;
 
+    public ProductService(ProductDao productDao) {
+        this.productDao = productDao;
+    }
+
     public List<Product> findAll() {
         return getProductDao().findAll();
     }
@@ -26,9 +30,6 @@ public class ProductService {
     }
 
     private ProductDao getProductDao() {
-        if (productDao == null) {
-            productDao = new JdbcProductDao();
-        }
         return productDao;
     }
 
