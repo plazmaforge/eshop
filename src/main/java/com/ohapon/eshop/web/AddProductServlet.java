@@ -2,7 +2,6 @@ package com.ohapon.eshop.web;
 
 import com.ohapon.eshop.entity.Product;
 import com.ohapon.eshop.service.ProductService;
-import com.ohapon.eshop.service.ServiceFactory;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,7 @@ import java.util.Map;
 public class AddProductServlet extends HttpServlet {
 
     private PageGenerator pageGenerator = PageGenerator.instance();
-    private ServiceFactory serviceFactory;
+    private ProductService productService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -35,8 +34,6 @@ public class AddProductServlet extends HttpServlet {
 
         long id = (long) (Math.random() * 10);
         Product product = new Product(id, name, price, new Date());
-
-        ProductService productService = serviceFactory.getProductService();
         productService.add(product);
 
         Map<String, Object> parametersMap = new HashMap<>();
@@ -47,7 +44,8 @@ public class AddProductServlet extends HttpServlet {
 
     }
 
-    public void setServiceFactory(ServiceFactory serviceFactory) {
-        this.serviceFactory = serviceFactory;
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
+
 }

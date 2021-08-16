@@ -4,11 +4,11 @@ import com.ohapon.eshop.dao.ProductDao;
 import com.ohapon.eshop.dao.jdbc.ConnectionFactory;
 import com.ohapon.eshop.dao.jdbc.JdbcProductDao;
 
-public class ServiceFactoryImpl implements ServiceFactory {
+public class DefaultServiceFactory implements ServiceFactory {
 
     private ConnectionFactory connectionFactory;
 
-    public ServiceFactoryImpl(ConnectionFactory connectionFactory) {
+    public DefaultServiceFactory(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 

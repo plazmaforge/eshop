@@ -47,38 +47,24 @@ public class JdbcProductDao implements ProductDao {
 
     @Override
     public Product findById(Long productId) {
-
-        ResultSet resultSet = null;
-
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_ONE_QUERY);
-        ) {
-
+             PreparedStatement statement = connection.prepareStatement(FIND_ONE_QUERY)) {
             statement.setLong(1, productId);
-            resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                long id = resultSet.getLong(1);
-                String name = resultSet.getString(2);
-                double price = resultSet.getDouble(3);
-                Date createdDate = resultSet.getDate(4);
+            try (ResultSet resultSet = statement.executeQuery();) {
+                if (resultSet.next()) {
+                    long id = resultSet.getLong(1);
+                    String name = resultSet.getString(2);
+                    double price = resultSet.getDouble(3);
+                    Date createdDate = resultSet.getDate(4);
 
-                Product product = new Product(id, name, price, createdDate);
-                return product;
+                    Product product = new Product(id, name, price, createdDate);
+                    return product;
+                }
+                throw new RuntimeException("Product not found: id=" + productId);
             }
-            throw new RuntimeException("Product not found: id=" + productId);
-
         } catch (SQLException e) {
             throw new RuntimeException("Cannot get product from db", e);
-        } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-
-                }
-            }
         }
-
     }
 
     @Override

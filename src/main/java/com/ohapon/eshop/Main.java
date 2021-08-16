@@ -3,7 +3,7 @@ package com.ohapon.eshop;
 import com.ohapon.eshop.dao.jdbc.ConnectionFactory;
 import com.ohapon.eshop.db.DBInitializer;
 import com.ohapon.eshop.service.ServiceFactory;
-import com.ohapon.eshop.service.ServiceFactoryImpl;
+import com.ohapon.eshop.service.DefaultServiceFactory;
 import com.ohapon.eshop.web.AddProductServlet;
 import com.ohapon.eshop.web.DeleteProductServlet;
 import com.ohapon.eshop.web.EditProductServlet;
@@ -22,24 +22,23 @@ public class Main {
         Properties properties = propertiesLoader.load("application.properties");
 
         ConnectionFactory connectionFactory = new ConnectionFactory(properties);
-        connectionFactory.init();
 
-        ServiceFactory serviceFactory = new ServiceFactoryImpl(connectionFactory);
+        ServiceFactory serviceFactory = new DefaultServiceFactory(connectionFactory);
 
         DBInitializer dbInitializer = new DBInitializer(connectionFactory);
         dbInitializer.init();
 
         ProductsServlet productsServlet = new ProductsServlet();
-        productsServlet.setServiceFactory(serviceFactory);
+        productsServlet.setProductService(serviceFactory.getProductService());
 
         AddProductServlet addProductServlet = new AddProductServlet();
-        addProductServlet.setServiceFactory(serviceFactory);
+        addProductServlet.setProductService(serviceFactory.getProductService());
 
         EditProductServlet editProductServlet = new EditProductServlet();
-        editProductServlet.setServiceFactory(serviceFactory);
+        editProductServlet.setProductService(serviceFactory.getProductService());
 
         DeleteProductServlet deleteProductServlet = new DeleteProductServlet();
-        deleteProductServlet.setServiceFactory(serviceFactory);
+        deleteProductServlet.setProductService(serviceFactory.getProductService());
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(productsServlet), "/");

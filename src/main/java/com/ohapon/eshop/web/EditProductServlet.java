@@ -2,7 +2,6 @@ package com.ohapon.eshop.web;
 
 import com.ohapon.eshop.entity.Product;
 import com.ohapon.eshop.service.ProductService;
-import com.ohapon.eshop.service.ServiceFactory;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,14 +14,13 @@ import java.util.Map;
 public class EditProductServlet extends HttpServlet {
 
     private PageGenerator pageGenerator = PageGenerator.instance();
-    private ServiceFactory serviceFactory;
+    private ProductService productService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 
         long id = Long.valueOf(req.getParameter("id"));
 
-        ProductService productService = serviceFactory.getProductService();
         Product product = productService.findById(id);
 
         Map<String, Object> parametersMap = new HashMap<>();
@@ -41,8 +39,6 @@ public class EditProductServlet extends HttpServlet {
         double price = Double.parseDouble(req.getParameter("price"));
 
         Product product = new Product(id, name, price, new Date());
-
-        ProductService productService = serviceFactory.getProductService();
         productService.update(product);
 
         Map<String, Object> parametersMap = new HashMap<>();
@@ -53,23 +49,8 @@ public class EditProductServlet extends HttpServlet {
 
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws IOException {
-
-        long id = Long.valueOf(req.getParameter("id"));
-
-        ProductService productService = serviceFactory.getProductService();
-        productService.remove(id);
-
-        Map<String, Object> parametersMap = new HashMap<>();
-        parametersMap.put("message", "Product '" + id + "' was removed");
-
-        String page = pageGenerator.getPage("message.html", parametersMap);
-        res.getWriter().println(page);
-
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
-    public void setServiceFactory(ServiceFactory serviceFactory) {
-        this.serviceFactory = serviceFactory;
-    }
 }
