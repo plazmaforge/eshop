@@ -21,11 +21,13 @@ public class DeleteProductServlet extends HttpServlet {
 
         productService.remove(id);
 
-        Map<String, Object> parametersMap = new HashMap<>();
-        parametersMap.put("message", "Product '" + id + "' was removed");
+        res.sendRedirect("/products");
 
-        String page = pageGenerator.getPage("message.html", parametersMap);
-        res.getWriter().println(page);
+        //Map<String, Object> parametersMap = new HashMap<>();
+        //parametersMap.put("message", "Product '" + id + "' was removed");
+
+        //String page = pageGenerator.getPage("message.html", parametersMap);
+        //res.getWriter().println(page);
 
     }
 

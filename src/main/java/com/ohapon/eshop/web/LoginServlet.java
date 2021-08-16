@@ -34,11 +34,14 @@ public class LoginServlet extends HttpServlet {
         // TODO
         User user = securityService.login(username, password);
 
-        Map<String, Object> parametersMap = new HashMap<>();
+        if (user != null) {
+            res.sendRedirect("/products");
+            return;
+        }
 
         // TODO
-        String message = "User '" + username + "' " + (user == null ? "not found" : "is login");
-        parametersMap.put("message", message);
+        Map<String, Object> parametersMap = new HashMap<>();
+        parametersMap.put("message", "Invalid user name or password");
 
         String page = pageGenerator.getPage("message.html", parametersMap);
         res.getWriter().println(page);

@@ -41,11 +41,13 @@ public class EditProductServlet extends HttpServlet {
         Product product = new Product(id, name, price, new Date());
         productService.update(product);
 
-        Map<String, Object> parametersMap = new HashMap<>();
-        parametersMap.put("message", "Product '" + product.getName() + "' was updated");
+        res.sendRedirect("/products");
 
-        String page = pageGenerator.getPage("message.html", parametersMap);
-        res.getWriter().println(page);
+        //Map<String, Object> parametersMap = new HashMap<>();
+        //parametersMap.put("message", "Product '" + product.getName() + "' was updated");
+
+        //String page = pageGenerator.getPage("message.html", parametersMap);
+        //res.getWriter().println(page);
 
     }
 

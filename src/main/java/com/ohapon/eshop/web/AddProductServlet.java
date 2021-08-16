@@ -36,11 +36,13 @@ public class AddProductServlet extends HttpServlet {
         Product product = new Product(id, name, price, new Date());
         productService.add(product);
 
-        Map<String, Object> parametersMap = new HashMap<>();
-        parametersMap.put("message", "New Product '" + product.getName() + "' was added");
+        res.sendRedirect("/products");
 
-        String page = pageGenerator.getPage("message.html", parametersMap);
-        res.getWriter().println(page);
+        //Map<String, Object> parametersMap = new HashMap<>();
+        //parametersMap.put("message", "New Product '" + product.getName() + "' was added");
+
+        //String page = pageGenerator.getPage("message.html", parametersMap);
+        //res.getWriter().println(page);
 
     }
 
