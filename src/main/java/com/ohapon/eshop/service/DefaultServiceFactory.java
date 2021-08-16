@@ -7,6 +7,8 @@ import com.ohapon.eshop.dao.jdbc.JdbcProductDao;
 public class DefaultServiceFactory implements ServiceFactory {
 
     private ConnectionFactory connectionFactory;
+    private ProductService productService;
+    SecurityService securityService;
 
     public DefaultServiceFactory(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
@@ -14,9 +16,19 @@ public class DefaultServiceFactory implements ServiceFactory {
 
     @Override
     public ProductService getProductService() {
-        ProductDao productDao = new JdbcProductDao(connectionFactory);
-        ProductService productService = new ProductService(productDao);
+        if (productService == null) {
+            ProductDao productDao = new JdbcProductDao(connectionFactory);
+            productService = new ProductService(productDao);
+        }
         return productService;
+    }
+
+    @Override
+    public SecurityService getSecurityService() {
+        if (securityService == null) {
+            securityService = new SecurityService();
+        }
+        return securityService;
     }
 
 }

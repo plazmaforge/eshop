@@ -21,32 +21,25 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/product/add">Add product</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <h2>Edit product</h2>
-    <form action="/product/edit" method="POST">
-        <input type="hidden" name="id" value="${product.id}" />
+    <h2>Login</h2>
+    <form action="/login" method="POST">
         <table>
             <tr>
-                <td>Name:</td>
-                <td><input type="text" name="name" value="${product.name}"/></td>
+                <td>User:</td>
+                <td><input type="text" name="username"/></td>
             </tr>
             <tr>
-                <td>Price:</td>
-                <td><input type="text" name="price" value="${product.price?string["0.00"]}"/></td>
+                <td>Password:</td>
+                <td><input type="text" name="password"/></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" value="Save"></td>
+                <td colspan="2"><input type="submit" value="Login"></td>
             </tr>
         </table>
     </form>

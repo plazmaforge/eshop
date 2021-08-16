@@ -1,7 +1,6 @@
 package com.ohapon.eshop.service;
 
 import com.ohapon.eshop.dao.ProductDao;
-import com.ohapon.eshop.dao.jdbc.JdbcProductDao;
 import com.ohapon.eshop.entity.Product;
 import java.util.List;
 

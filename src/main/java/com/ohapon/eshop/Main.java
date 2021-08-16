@@ -4,10 +4,7 @@ import com.ohapon.eshop.dao.jdbc.ConnectionFactory;
 import com.ohapon.eshop.db.DBInitializer;
 import com.ohapon.eshop.service.ServiceFactory;
 import com.ohapon.eshop.service.DefaultServiceFactory;
-import com.ohapon.eshop.web.AddProductServlet;
-import com.ohapon.eshop.web.DeleteProductServlet;
-import com.ohapon.eshop.web.EditProductServlet;
-import com.ohapon.eshop.web.ProductsServlet;
+import com.ohapon.eshop.web.*;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -40,11 +37,16 @@ public class Main {
         DeleteProductServlet deleteProductServlet = new DeleteProductServlet();
         deleteProductServlet.setProductService(serviceFactory.getProductService());
 
+        LoginServlet loginServlet = new LoginServlet();
+        loginServlet.setSecurityService(serviceFactory.getSecurityService());
+
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(productsServlet), "/");
         context.addServlet(new ServletHolder(addProductServlet), "/product/add");
         context.addServlet(new ServletHolder(editProductServlet), "/product/edit");
         context.addServlet(new ServletHolder(deleteProductServlet), "/product/delete");
+
+        context.addServlet(new ServletHolder(loginServlet), "/login");
 
         Server server = new Server(8080);
         server.setHandler(context);
