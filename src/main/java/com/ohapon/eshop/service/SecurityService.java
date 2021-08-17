@@ -1,20 +1,25 @@
 package com.ohapon.eshop.service;
 
+import java.util.*;
 import com.ohapon.eshop.entity.User;
 
 public class SecurityService {
 
-    public User login(String username, String password) {
+    private List<String> tokens = new ArrayList<>();
 
+    public boolean login(String username, String password) {
         // TODO
-        if (!"test".equals(username) && !"test".equals(password)) {
-            return null;
-        }
+        return "test".equals(username) && "test".equals(password);
+    }
 
-        // TODO
-        User user = new User();
-        user.setName(username);
-        return user;
+    public boolean hasToken(String token) {
+        return tokens.contains(token);
+    }
+
+    public String generateToken() {
+        String token = UUID.randomUUID().toString();
+        tokens.add(token);
+        return token;
     }
 
 }

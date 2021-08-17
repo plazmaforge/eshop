@@ -32,8 +32,7 @@ public class AddProductServlet extends HttpServlet {
         String name = req.getParameter("name");
         double price = Double.parseDouble(req.getParameter("price"));
 
-        long id = (long) (Math.random() * 10);
-        Product product = new Product(id, name, price, new Date());
+        Product product = new Product(name, price, new Date());
         productService.add(product);
 
         res.sendRedirect("/products");

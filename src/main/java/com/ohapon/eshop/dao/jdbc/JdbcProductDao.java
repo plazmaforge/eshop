@@ -72,10 +72,22 @@ public class JdbcProductDao implements ProductDao {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
 
+            // TODO
+            long id = (long) (Math.random() * 10);
+            product.setId(id);
+
+            //statement.getGeneratedKeys();
+            //try(ResultSet keySet = statement.getGeneratedKeys()) {
+            //    keySet.next();
+            //    long id = keySet.getLong(1);
+            //    product.setId(id);
+            //}
+
             statement.setLong(1, product.getId());
             statement.setString(2, product.getName());
             statement.setDouble(3, product.getPrice());
             statement.setDate(4, new java.sql.Date(product.getDate().getTime()));
+
 
             statement.execute();
 

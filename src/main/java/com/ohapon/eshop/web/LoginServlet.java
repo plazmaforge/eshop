@@ -1,8 +1,8 @@
 package com.ohapon.eshop.web;
 
-import com.ohapon.eshop.entity.User;
 import com.ohapon.eshop.service.SecurityService;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,15 +31,13 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        // TODO
-        User user = securityService.login(username, password);
-
-        if (user != null) {
+        if (securityService.login(username, password)) {
+            String token = securityService.generateToken();
+            res.addCookie(new Cookie("user-token", token));
             res.sendRedirect("/products");
             return;
         }
 
-        // TODO
         Map<String, Object> parametersMap = new HashMap<>();
         parametersMap.put("message", "Invalid user name or password");
 

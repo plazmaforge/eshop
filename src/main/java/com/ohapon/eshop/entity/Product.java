@@ -9,6 +9,12 @@ public class Product {
     private double price;
     private Date date;
 
+    public Product(String name, double price, Date date) {
+        this.name = name;
+        this.price = price;
+        this.date = date;
+    }
+
     public Product(long id, String name, double price, Date date) {
         this.id = id;
         this.name = name;
