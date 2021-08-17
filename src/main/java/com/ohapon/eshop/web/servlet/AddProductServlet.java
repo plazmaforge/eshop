@@ -32,7 +32,7 @@ public class AddProductServlet extends HttpServlet {
         String name = req.getParameter("name");
         double price = Double.parseDouble(req.getParameter("price"));
 
-        Product product = new Product(name, price, new Date());
+        Product product = new Product(name, price);
         productService.add(product);
 
         res.sendRedirect("/products");

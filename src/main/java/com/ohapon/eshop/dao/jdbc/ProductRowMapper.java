@@ -14,9 +14,9 @@ public class ProductRowMapper {
             double price = resultSet.getDouble("price");
 
             //String productDescription = resultSet.getString("description");
-            //LocalDateTime localDateTime = resultSet.getTimestamp("created_date").toLocalDateTime();
+            LocalDateTime date = resultSet.getTimestamp("created_date").toLocalDateTime();
 
-            Product product = new Product(id, name, price, null);
+            Product product = new Product(id, name, price, date);
             return product;
         }
 

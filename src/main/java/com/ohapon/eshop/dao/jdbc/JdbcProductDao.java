@@ -5,7 +5,6 @@ import com.ohapon.eshop.entity.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class JdbcProductDao implements ProductDao {
@@ -13,7 +12,7 @@ public class JdbcProductDao implements ProductDao {
     private static final String FIND_ALL_QUERY = "SELECT id, name, price, created_date FROM product ORDER BY id";
     private static final String FIND_BY_ID_QUERY = "SELECT id, name, price, created_date FROM product WHERE id = ?";
     private static final String INSERT_QUERY = "INSERT INTO product (id, name, price, created_date) VALUES (?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "UPDATE product SET name = ?, price = ?, created_date = ? WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE product SET name = ?, price = ? WHERE id = ?";
     private static final String DELETE_QUERY = "DELETE FROM product WHERE id = ?";
 
     private static final ProductRowMapper ROW_MAPPER = new ProductRowMapper();
@@ -78,8 +77,7 @@ public class JdbcProductDao implements ProductDao {
             statement.setLong(1, product.getId());
             statement.setString(2, product.getName());
             statement.setDouble(3, product.getPrice());
-            statement.setDate(4, new java.sql.Date(product.getDate().getTime()));
-
+            statement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
 
             statement.execute();
 
@@ -95,8 +93,7 @@ public class JdbcProductDao implements ProductDao {
 
             statement.setString(1, product.getName());
             statement.setDouble(2, product.getPrice());
-            statement.setDate(3, new java.sql.Date(product.getDate().getTime()));
-            statement.setLong(4, product.getId());
+            statement.setLong(3, product.getId());
 
             statement.execute();
 
