@@ -28,7 +28,6 @@ public class AddProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
-
         String name = req.getParameter("name");
         double price = Double.parseDouble(req.getParameter("price"));
 
@@ -36,13 +35,6 @@ public class AddProductServlet extends HttpServlet {
         productService.add(product);
 
         res.sendRedirect("/products");
-
-        //Map<String, Object> parametersMap = new HashMap<>();
-        //parametersMap.put("message", "New Product '" + product.getName() + "' was added");
-
-        //String page = pageGenerator.getPage("message.html", parametersMap);
-        //res.getWriter().println(page);
-
     }
 
     public void setProductService(ProductService productService) {

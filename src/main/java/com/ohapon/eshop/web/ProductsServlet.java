@@ -18,7 +18,6 @@ public class ProductsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-
         List<Product> products = productService.findAll();
 
         Map<String, Object> parametersMap = new HashMap<>();
@@ -26,7 +25,6 @@ public class ProductsServlet extends HttpServlet {
 
         String page = pageGenerator.getPage("products.html", parametersMap);
         res.getWriter().println(page);
-
     }
 
     public void setProductService(ProductService productService) {

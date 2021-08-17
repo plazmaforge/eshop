@@ -16,19 +16,10 @@ public class DeleteProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
-
         long id = Long.valueOf(req.getParameter("id"));
 
         productService.remove(id);
-
         res.sendRedirect("/products");
-
-        //Map<String, Object> parametersMap = new HashMap<>();
-        //parametersMap.put("message", "Product '" + id + "' was removed");
-
-        //String page = pageGenerator.getPage("message.html", parametersMap);
-        //res.getWriter().println(page);
-
     }
 
     public void setProductService(ProductService productService) {

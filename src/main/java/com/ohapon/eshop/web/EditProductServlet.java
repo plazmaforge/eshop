@@ -33,7 +33,6 @@ public class EditProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
-
         long id = Long.valueOf(req.getParameter("id"));
         String name = req.getParameter("name");
         double price = Double.parseDouble(req.getParameter("price"));
@@ -42,13 +41,6 @@ public class EditProductServlet extends HttpServlet {
         productService.update(product);
 
         res.sendRedirect("/products");
-
-        //Map<String, Object> parametersMap = new HashMap<>();
-        //parametersMap.put("message", "Product '" + product.getName() + "' was updated");
-
-        //String page = pageGenerator.getPage("message.html", parametersMap);
-        //res.getWriter().println(page);
-
     }
 
     public void setProductService(ProductService productService) {

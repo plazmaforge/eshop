@@ -14,9 +14,6 @@ public class SecurityService {
 
     public boolean login(String username, String password) {
         return userService.existsUser(username, password);
-
-        // TODO
-        //return "test".equals(username) && "test".equals(password);
     }
 
     public boolean existsToken(String token) {
