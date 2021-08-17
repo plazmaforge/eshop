@@ -16,6 +16,8 @@ public class JdbcProductDao implements ProductDao {
     private static final String UPDATE_QUERY = "UPDATE product SET name = ?, price = ?, created_date = ? WHERE id = ?";
     private static final String DELETE_QUERY = "DELETE FROM product WHERE id = ?";
 
+    private static final ProductRowMapper ROW_MAPPER = new ProductRowMapper();
+
     private ConnectionFactory connectionFactory;
     public JdbcProductDao(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
@@ -30,12 +32,7 @@ public class JdbcProductDao implements ProductDao {
             List<Product> products = new ArrayList<>();
 
             while (resultSet.next()) {
-                long id = resultSet.getLong(1);
-                String name = resultSet.getString(2);
-                double price = resultSet.getDouble(3);
-                Date createdDate = resultSet.getDate(4);
-
-                Product product = new Product(id, name, price, createdDate);
+                Product product = ROW_MAPPER.mapRow(resultSet);
                 products.add(product);
             }
             return products;
@@ -52,12 +49,7 @@ public class JdbcProductDao implements ProductDao {
             statement.setLong(1, productId);
             try (ResultSet resultSet = statement.executeQuery();) {
                 if (resultSet.next()) {
-                    long id = resultSet.getLong(1);
-                    String name = resultSet.getString(2);
-                    double price = resultSet.getDouble(3);
-                    Date createdDate = resultSet.getDate(4);
-
-                    Product product = new Product(id, name, price, createdDate);
+                    Product product = ROW_MAPPER.mapRow(resultSet);
                     return product;
                 }
                 throw new RuntimeException("Product not found: id=" + productId);
