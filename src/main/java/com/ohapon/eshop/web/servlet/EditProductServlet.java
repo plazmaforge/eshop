@@ -1,7 +1,8 @@
-package com.ohapon.eshop.web;
+package com.ohapon.eshop.web.servlet;
 
 import com.ohapon.eshop.entity.Product;
 import com.ohapon.eshop.service.ProductService;
+import com.ohapon.eshop.web.PageGenerator;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

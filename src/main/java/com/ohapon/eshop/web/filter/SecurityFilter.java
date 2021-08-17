@@ -1,4 +1,4 @@
-package com.ohapon.eshop.web;
+package com.ohapon.eshop.web.filter;
 
 import com.ohapon.eshop.service.SecurityService;
 

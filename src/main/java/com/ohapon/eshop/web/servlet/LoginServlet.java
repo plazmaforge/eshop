@@ -1,6 +1,7 @@
-package com.ohapon.eshop.web;
+package com.ohapon.eshop.web.servlet;
 
 import com.ohapon.eshop.service.SecurityService;
+import com.ohapon.eshop.web.PageGenerator;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
