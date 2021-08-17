@@ -22,7 +22,7 @@ public class SecurityFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
         String token = getToken(httpServletRequest);
-        if (securityService.hasToken(token)) {
+        if (securityService.existsToken(token)) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }

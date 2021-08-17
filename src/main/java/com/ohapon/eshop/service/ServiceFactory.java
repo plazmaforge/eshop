@@ -4,6 +4,10 @@ public interface ServiceFactory {
 
     ProductService getProductService();
 
+    UserService getUserService();
+
     SecurityService getSecurityService();
+
+
 
 }

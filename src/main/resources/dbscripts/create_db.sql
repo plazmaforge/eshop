@@ -4,3 +4,9 @@ CREATE TABLE product (
   price float,
   created_date date
  );
+
+ CREATE TABLE user (
+   id int,
+   name varchar(100),
+   password varchar(20),
+  );
