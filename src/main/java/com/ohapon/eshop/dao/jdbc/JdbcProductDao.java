@@ -9,10 +9,10 @@ import java.util.List;
 
 public class JdbcProductDao implements ProductDao {
 
-    private static final String FIND_ALL_QUERY = "SELECT id, name, price, created_date FROM product ORDER BY id";
-    private static final String FIND_BY_ID_QUERY = "SELECT id, name, price, created_date FROM product WHERE id = ?";
-    private static final String INSERT_QUERY = "INSERT INTO product (id, name, price, created_date) VALUES (?, ?, ?, ?)";
-    private static final String UPDATE_QUERY = "UPDATE product SET name = ?, price = ? WHERE id = ?";
+    private static final String FIND_ALL_QUERY = "SELECT id, name, description, price, created_date FROM product ORDER BY id";
+    private static final String FIND_BY_ID_QUERY = "SELECT id, name, description, price, created_date FROM product WHERE id = ?";
+    private static final String INSERT_QUERY = "INSERT INTO product (id, name, description, price, created_date) VALUES (?, ?, ?, ?, ?)";
+    private static final String UPDATE_QUERY = "UPDATE product SET name = ?, description = ?, price = ? WHERE id = ?";
     private static final String DELETE_QUERY = "DELETE FROM product WHERE id = ?";
 
     private static final ProductRowMapper ROW_MAPPER = new ProductRowMapper();
@@ -76,8 +76,9 @@ public class JdbcProductDao implements ProductDao {
 
             statement.setLong(1, product.getId());
             statement.setString(2, product.getName());
-            statement.setDouble(3, product.getPrice());
-            statement.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
+            statement.setString(3, product.getDescription());
+            statement.setDouble(4, product.getPrice());
+            statement.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
 
             statement.execute();
 
@@ -92,8 +93,9 @@ public class JdbcProductDao implements ProductDao {
              PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
 
             statement.setString(1, product.getName());
-            statement.setDouble(2, product.getPrice());
-            statement.setLong(3, product.getId());
+            statement.setString(2, product.getDescription());
+            statement.setDouble(3, product.getPrice());
+            statement.setLong(4, product.getId());
 
             statement.execute();
 

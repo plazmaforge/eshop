@@ -4,6 +4,7 @@ import com.ohapon.eshop.entity.Product;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class ProductRowMapper {
@@ -11,12 +12,13 @@ public class ProductRowMapper {
         public Product mapRow(ResultSet resultSet) throws SQLException {
             long id = resultSet.getLong("id");
             String name = resultSet.getString("name");
+            String description = resultSet.getString("description");
             double price = resultSet.getDouble("price");
 
-            //String productDescription = resultSet.getString("description");
-            LocalDateTime date = resultSet.getTimestamp("created_date").toLocalDateTime();
+            Timestamp timestamp = resultSet.getTimestamp("created_date");
+            LocalDateTime date = timestamp == null ? null : timestamp.toLocalDateTime();
 
-            Product product = new Product(id, name, price, date);
+            Product product = new Product(id, name, description, price, date);
             return product;
         }
 

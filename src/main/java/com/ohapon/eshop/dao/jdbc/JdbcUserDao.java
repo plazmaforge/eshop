@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class JdbcUserDao implements UserDao {
 
-    private static final String FIND_QUERY = "SELECT id FROM user WHERE name = ? AND password = ?";
+    private static final String FIND_QUERY = "SELECT id FROM user WHERE username = ? AND password = ?";
 
     private ConnectionFactory connectionFactory;
     public JdbcUserDao(ConnectionFactory connectionFactory) {
@@ -14,10 +14,10 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean existsUser(String name, String password) {
+    public boolean existsUser(String username, String password) {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_QUERY)) {
-            statement.setString(1, name);
+            statement.setString(1, username);
             statement.setString(2, password);
             try (ResultSet resultSet = statement.executeQuery();) {
                 return resultSet.next();

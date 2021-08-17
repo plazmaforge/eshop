@@ -36,9 +36,10 @@ public class EditProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         long id = Long.valueOf(req.getParameter("id"));
         String name = req.getParameter("name");
+        String description = req.getParameter("description");
         double price = Double.parseDouble(req.getParameter("price"));
 
-        Product product = new Product(id, name, price);
+        Product product = new Product(id, name, description, price);
         productService.update(product);
 
         res.sendRedirect("/products");

@@ -10,8 +10,8 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    boolean existsUser(String name, String password) {
-        return getUserDao().existsUser(name, password);
+    boolean existsUser(String username, String password) {
+        return getUserDao().existsUser(username, password);
     }
 
     public UserDao getUserDao() {

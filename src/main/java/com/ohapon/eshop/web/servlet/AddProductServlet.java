@@ -30,9 +30,10 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String name = req.getParameter("name");
+        String description = req.getParameter("description");
         double price = Double.parseDouble(req.getParameter("price"));
 
-        Product product = new Product(name, price);
+        Product product = new Product(name, description, price);
         productService.add(product);
 
         res.sendRedirect("/products");
