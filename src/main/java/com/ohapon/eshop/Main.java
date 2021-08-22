@@ -46,6 +46,9 @@ public class Main {
         ProductRemoveServlet productRemoveServlet = new ProductRemoveServlet();
         productRemoveServlet.setProductService(serviceFactory.getProductService());
 
+        ProductSearchServlet productSearchServlet = new ProductSearchServlet();
+        productSearchServlet.setProductService(serviceFactory.getProductService());
+
         // Login
         LoginServlet loginServlet = new LoginServlet();
         loginServlet.setSecurityService(serviceFactory.getSecurityService());
@@ -70,6 +73,8 @@ public class Main {
         context.addServlet(new ServletHolder(productAddServlet), "/product/add");
         context.addServlet(new ServletHolder(productEditServlet), "/product/edit");
         context.addServlet(new ServletHolder(productRemoveServlet), "/product/remove");
+
+        context.addServlet(new ServletHolder(productSearchServlet), "/search");
 
         context.addServlet(new ServletHolder(loginServlet), "/login");
         context.addServlet(new ServletHolder(logoutServlet), "/logout");

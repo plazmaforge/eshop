@@ -16,6 +16,10 @@ public class ProductService {
         return getProductDao().findAll();
     }
 
+    public List<Product> findByText(String text) {
+        return getProductDao().findByText(text);
+    }
+
     public Product findById(Long productId) {
         return getProductDao().findById(productId);
     }

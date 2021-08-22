@@ -9,7 +9,8 @@ import java.util.List;
 
 public class JdbcProductDao implements ProductDao {
 
-    private static final String FIND_ALL_QUERY = "SELECT id, name, description, price, created_date FROM product ORDER BY id";
+    private static final String FIND_ALL_QUERY = "SELECT id, name, description, price, created_date FROM product ORDER BY name";
+    private static final String FIND_BY_TEXT_QUERY = "SELECT id, name, description, price, created_date FROM product WHERE UPPER(name) LIKE ? OR UPPER(description) LIKE ? ORDER BY name";
     private static final String FIND_BY_ID_QUERY = "SELECT id, name, description, price, created_date FROM product WHERE id = ?";
     private static final String INSERT_QUERY = "INSERT INTO product (id, name, description, price, created_date) VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE_QUERY = "UPDATE product SET name = ?, description = ?, price = ? WHERE id = ?";
@@ -34,6 +35,30 @@ public class JdbcProductDao implements ProductDao {
                 Product product = ROW_MAPPER.mapRow(resultSet);
                 products.add(product);
             }
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException("Cannot get products from db", e);
+        }
+
+    }
+
+    @Override
+    public List<Product> findByText(String text) {
+
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_BY_TEXT_QUERY)) {
+            List<Product> products = new ArrayList<>();
+
+            statement.setString(1, "%" + text.toUpperCase() + "%");
+            statement.setString(2, "%" + text.toUpperCase() + "%");
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Product product = ROW_MAPPER.mapRow(resultSet);
+                    products.add(product);
+                }
+            }
+
             return products;
         } catch (SQLException e) {
             throw new RuntimeException("Cannot get products from db", e);
