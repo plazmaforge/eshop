@@ -16,14 +16,24 @@ public class SecurityService {
         return userService.existsUser(username, password);
     }
 
+
     public boolean existsToken(String token) {
         return tokens.contains(token);
     }
 
     public String generateToken() {
         String token = UUID.randomUUID().toString();
-        tokens.add(token);
+        addToken(token);
         return token;
     }
+
+    public void addToken(String token) {
+        tokens.add(token);
+    }
+
+    public boolean removeToken(String token) {
+        return tokens.remove(token);
+    }
+
 
 }

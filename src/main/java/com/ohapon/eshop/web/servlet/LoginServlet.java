@@ -2,8 +2,8 @@ package com.ohapon.eshop.web.servlet;
 
 import com.ohapon.eshop.service.SecurityService;
 import com.ohapon.eshop.web.PageGenerator;
+import com.ohapon.eshop.web.utils.WebUtils;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 
         if (securityService.login(username, password)) {
             String token = securityService.generateToken();
-            res.addCookie(new Cookie("user-token", token));
+            WebUtils.addToken(res, token);
             res.sendRedirect("/products");
             return;
         }

@@ -46,8 +46,13 @@ public class Main {
         DeleteProductServlet deleteProductServlet = new DeleteProductServlet();
         deleteProductServlet.setProductService(serviceFactory.getProductService());
 
+        // Login
         LoginServlet loginServlet = new LoginServlet();
         loginServlet.setSecurityService(serviceFactory.getSecurityService());
+
+        // Logout
+        LogoutServlet logoutServlet = new LogoutServlet();
+        logoutServlet.setSecurityService(serviceFactory.getSecurityService());
 
         SecurityFilter securityFilter = new SecurityFilter(securityService);
 
@@ -57,6 +62,8 @@ public class Main {
         context.addServlet(new ServletHolder(editProductServlet), "/product/edit");
         context.addServlet(new ServletHolder(deleteProductServlet), "/product/delete");
         context.addServlet(new ServletHolder(loginServlet), "/login");
+        context.addServlet(new ServletHolder(logoutServlet), "/logout");
+
 
         context.addFilter(new FilterHolder(securityFilter), "/product/*", EnumSet.of(DispatcherType.REQUEST));
 
