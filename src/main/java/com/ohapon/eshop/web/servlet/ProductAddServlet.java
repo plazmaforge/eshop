@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddProductServlet extends HttpServlet {
+public class ProductAddServlet extends HttpServlet {
 
     private PageGenerator pageGenerator = PageGenerator.instance();
     private ProductService productService;
@@ -21,7 +21,7 @@ public class AddProductServlet extends HttpServlet {
 
         Map<String, Object> parametersMap = new HashMap<>();
 
-        String page = pageGenerator.getPage("addProduct.html", parametersMap);
+        String page = pageGenerator.getPage("product_add.html", parametersMap);
         res.getWriter().println(page);
 
     }

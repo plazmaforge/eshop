@@ -37,14 +37,14 @@ public class Main {
         ProductsServlet productsServlet = new ProductsServlet();
         productsServlet.setProductService(serviceFactory.getProductService());
 
-        AddProductServlet addProductServlet = new AddProductServlet();
-        addProductServlet.setProductService(serviceFactory.getProductService());
+        ProductAddServlet productAddServlet = new ProductAddServlet();
+        productAddServlet.setProductService(serviceFactory.getProductService());
 
-        EditProductServlet editProductServlet = new EditProductServlet();
-        editProductServlet.setProductService(serviceFactory.getProductService());
+        ProductEditServlet productEditServlet = new ProductEditServlet();
+        productEditServlet.setProductService(serviceFactory.getProductService());
 
-        DeleteProductServlet deleteProductServlet = new DeleteProductServlet();
-        deleteProductServlet.setProductService(serviceFactory.getProductService());
+        ProductRemoveServlet productRemoveServlet = new ProductRemoveServlet();
+        productRemoveServlet.setProductService(serviceFactory.getProductService());
 
         // Login
         LoginServlet loginServlet = new LoginServlet();
@@ -67,9 +67,9 @@ public class Main {
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(productsServlet), "/");
-        context.addServlet(new ServletHolder(addProductServlet), "/product/add");
-        context.addServlet(new ServletHolder(editProductServlet), "/product/edit");
-        context.addServlet(new ServletHolder(deleteProductServlet), "/product/delete");
+        context.addServlet(new ServletHolder(productAddServlet), "/product/add");
+        context.addServlet(new ServletHolder(productEditServlet), "/product/edit");
+        context.addServlet(new ServletHolder(productRemoveServlet), "/product/remove");
 
         context.addServlet(new ServletHolder(loginServlet), "/login");
         context.addServlet(new ServletHolder(logoutServlet), "/logout");
