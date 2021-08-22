@@ -54,6 +54,15 @@ public class Main {
         LogoutServlet logoutServlet = new LogoutServlet();
         logoutServlet.setSecurityService(serviceFactory.getSecurityService());
 
+        // Cart
+        CartServlet cartServlet = new CartServlet();
+
+        CartAddServlet cartAddServlet = new CartAddServlet();
+        cartAddServlet.setProductService(serviceFactory.getProductService());
+
+        CartRemoveServlet cartRemoveServlet = new CartRemoveServlet();
+        cartRemoveServlet.setProductService(serviceFactory.getProductService());
+
         SecurityFilter securityFilter = new SecurityFilter(securityService);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -61,9 +70,13 @@ public class Main {
         context.addServlet(new ServletHolder(addProductServlet), "/product/add");
         context.addServlet(new ServletHolder(editProductServlet), "/product/edit");
         context.addServlet(new ServletHolder(deleteProductServlet), "/product/delete");
+
         context.addServlet(new ServletHolder(loginServlet), "/login");
         context.addServlet(new ServletHolder(logoutServlet), "/logout");
 
+        context.addServlet(new ServletHolder(cartServlet), "/cart");
+        context.addServlet(new ServletHolder(cartAddServlet), "/cart/add");
+        context.addServlet(new ServletHolder(cartRemoveServlet), "/cart/remove");
 
         context.addFilter(new FilterHolder(securityFilter), "/product/*", EnumSet.of(DispatcherType.REQUEST));
 

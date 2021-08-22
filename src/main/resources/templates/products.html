@@ -24,6 +24,9 @@
                     <a class="nav-link" href="/product/add">Add product</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/cart">Cart</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/login">Login</a>
                 </li>
                 <li class="nav-item">
@@ -45,6 +48,7 @@
             <th scope="col">Price</th>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
 
@@ -60,6 +64,10 @@
             <td>
                 <form action="/product/delete" method="POST"><input type="hidden" name="id" value="${product.id}" /><button type="submit" class="btn btn-danger">Delete</button></form>
             </td>
+            <td>
+                <form action="/cart/add" method="POST"><input type="hidden" name="id" value="${product.id}" /><button type="submit" class="btn btn-secondary">Add to cart</button></form>
+            </td>
+
         </tr>
         </#list>
         </tbody>
