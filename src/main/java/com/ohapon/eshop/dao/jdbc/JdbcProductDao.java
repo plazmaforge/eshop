@@ -84,7 +84,7 @@ public class JdbcProductDao implements ProductDao {
                     Product product = ROW_MAPPER.mapRow(resultSet);
                     return product;
                 }
-                throw new RuntimeException("Product not found: id=" + productId);
+                throw new SQLException("Product not found: id=" + productId);
             }
         } catch (SQLException e) {
             logger.error(e);
@@ -97,16 +97,8 @@ public class JdbcProductDao implements ProductDao {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
 
-            // TODO
-            long id = (long) (Math.random() * 10);
+            long id = generateId(connection);
             product.setId(id);
-
-            //statement.getGeneratedKeys();
-            //try(ResultSet keySet = statement.getGeneratedKeys()) {
-            //    keySet.next();
-            //    long id = keySet.getLong(1);
-            //    product.setId(id);
-            //}
 
             statement.setLong(1, product.getId());
             statement.setString(2, product.getName());
@@ -153,6 +145,30 @@ public class JdbcProductDao implements ProductDao {
             logger.error(e);
             throw new RuntimeException("Cannot delete product from db: productId = " + productId, e);
         }
+    }
+
+    private long generateId(Connection connection) {
+
+        //long id = (long) (Math.random() * 10);
+
+        //statement.getGeneratedKeys();
+        //try(ResultSet keySet = statement.getGeneratedKeys()) {
+        //    keySet.next();
+        //    long id = keySet.getLong(1);
+        //    product.setId(id);
+        //}
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT MAX(ID) + 1 FROM product")) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+            throw new SQLException("Cannot generate id for Product");
+        } catch (SQLException e) {
+            logger.error(e);
+            throw new RuntimeException("Cannot generate id for Product", e);
+        }
+
     }
 
     private Connection getConnection() throws SQLException {
