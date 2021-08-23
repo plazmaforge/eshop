@@ -21,7 +21,8 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String token = WebUtils.getToken(request);
-        if (securityService.removeToken(token)) {
+        if (securityService.existsToken(token)) {
+            securityService.removeSession(token);
             WebUtils.removeToken(response);
             response.sendRedirect("/products");
             return;

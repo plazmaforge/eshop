@@ -1,5 +1,6 @@
 package com.ohapon.eshop.web.servlet;
 
+import com.ohapon.eshop.entity.Session;
 import com.ohapon.eshop.service.SecurityService;
 import com.ohapon.eshop.service.ServiceLocator;
 import com.ohapon.eshop.web.PageGenerator;
@@ -35,6 +36,8 @@ public class LoginServlet extends HttpServlet {
 
         if (securityService.login(username, password)) {
             String token = securityService.generateToken();
+            Session session = new Session();
+            securityService.addSession(token, session);
             WebUtils.addToken(res, token);
             res.sendRedirect("/products");
             return;
