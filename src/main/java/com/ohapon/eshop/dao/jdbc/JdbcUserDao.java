@@ -1,6 +1,8 @@
 package com.ohapon.eshop.dao.jdbc;
 
 import com.ohapon.eshop.dao.UserDao;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
@@ -9,6 +11,9 @@ public class JdbcUserDao implements UserDao {
     private static final String FIND_QUERY = "SELECT id FROM user WHERE username = ? AND password = ?";
 
     private DefaultDataSource dataSource;
+
+    private static Logger logger = LogManager.getLogger(JdbcUserDao.class);
+
     public JdbcUserDao(DefaultDataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -23,6 +28,7 @@ public class JdbcUserDao implements UserDao {
                 return resultSet.next();
             }
         } catch (SQLException e) {
+            logger.error(e);
             throw new RuntimeException("Cannot get user from db", e);
         }
     }

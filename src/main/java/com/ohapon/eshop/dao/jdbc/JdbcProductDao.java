@@ -2,6 +2,8 @@ package com.ohapon.eshop.dao.jdbc;
 
 import com.ohapon.eshop.dao.ProductDao;
 import com.ohapon.eshop.entity.Product;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,6 +21,10 @@ public class JdbcProductDao implements ProductDao {
     private static final ProductRowMapper ROW_MAPPER = new ProductRowMapper();
 
     private DefaultDataSource dataSource;
+
+    private static Logger logger = LogManager.getLogger(JdbcProductDao.class);
+
+
     public JdbcProductDao(DefaultDataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -37,6 +43,7 @@ public class JdbcProductDao implements ProductDao {
             }
             return products;
         } catch (SQLException e) {
+            logger.error(e);
             throw new RuntimeException("Cannot get products from db", e);
         }
 
@@ -61,6 +68,7 @@ public class JdbcProductDao implements ProductDao {
 
             return products;
         } catch (SQLException e) {
+            logger.error(e);
             throw new RuntimeException("Cannot get products from db", e);
         }
 
@@ -79,6 +87,7 @@ public class JdbcProductDao implements ProductDao {
                 throw new RuntimeException("Product not found: id=" + productId);
             }
         } catch (SQLException e) {
+            logger.error(e);
             throw new RuntimeException("Cannot get product from db", e);
         }
     }
@@ -108,6 +117,7 @@ public class JdbcProductDao implements ProductDao {
             statement.execute();
 
         } catch (SQLException e) {
+            logger.error(e);
             throw new RuntimeException("Cannot add product to db", e);
         }
     }
@@ -125,6 +135,7 @@ public class JdbcProductDao implements ProductDao {
             statement.execute();
 
         } catch (SQLException e) {
+            logger.error(e);
             throw new RuntimeException("Cannot update product in db: productId = " + product.getId(), e);
         }
     }
@@ -139,6 +150,7 @@ public class JdbcProductDao implements ProductDao {
             statement.execute();
 
         } catch (SQLException e) {
+            logger.error(e);
             throw new RuntimeException("Cannot delete product from db: productId = " + productId, e);
         }
     }
