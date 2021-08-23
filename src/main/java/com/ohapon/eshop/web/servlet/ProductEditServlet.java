@@ -2,6 +2,7 @@ package com.ohapon.eshop.web.servlet;
 
 import com.ohapon.eshop.entity.Product;
 import com.ohapon.eshop.service.ProductService;
+import com.ohapon.eshop.service.ServiceLocator;
 import com.ohapon.eshop.web.PageGenerator;
 
 import javax.servlet.http.HttpServlet;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class ProductEditServlet extends HttpServlet {
 
     private PageGenerator pageGenerator = PageGenerator.instance();
-    private ProductService productService;
+    private ProductService productService = ServiceLocator.getService(ProductService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -42,10 +43,6 @@ public class ProductEditServlet extends HttpServlet {
         productService.update(product);
 
         res.sendRedirect("/products");
-    }
-
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
     }
 
 }

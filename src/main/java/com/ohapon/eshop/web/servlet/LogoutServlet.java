@@ -1,6 +1,7 @@
 package com.ohapon.eshop.web.servlet;
 
 import com.ohapon.eshop.service.SecurityService;
+import com.ohapon.eshop.service.ServiceLocator;
 import com.ohapon.eshop.web.PageGenerator;
 import com.ohapon.eshop.web.utils.WebUtils;
 
@@ -14,7 +15,7 @@ import java.util.Map;
 public class LogoutServlet extends HttpServlet {
 
     private PageGenerator pageGenerator = PageGenerator.instance();
-    private SecurityService securityService;
+    private SecurityService securityService = ServiceLocator.getService(SecurityService.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -32,10 +33,6 @@ public class LogoutServlet extends HttpServlet {
         String page = pageGenerator.getPage("message.html", parametersMap);
         response.getWriter().println(page);
 
-    }
-
-    public void setSecurityService(SecurityService securityService) {
-        this.securityService = securityService;
     }
 
 }

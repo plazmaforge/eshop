@@ -3,6 +3,7 @@ package com.ohapon.eshop.web.servlet;
 import com.ohapon.eshop.entity.Cart;
 import com.ohapon.eshop.entity.Product;
 import com.ohapon.eshop.service.ProductService;
+import com.ohapon.eshop.service.ServiceLocator;
 import com.ohapon.eshop.web.PageGenerator;
 import com.ohapon.eshop.web.utils.WebUtils;
 
@@ -14,7 +15,7 @@ import java.io.IOException;
 public class CartAddServlet extends HttpServlet {
 
     private PageGenerator pageGenerator = PageGenerator.instance();
-    private ProductService productService;
+    private ProductService productService = ServiceLocator.getService(ProductService.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -25,10 +26,6 @@ public class CartAddServlet extends HttpServlet {
         cart.addItem(product, 1f);
 
         response.sendRedirect("/cart");
-    }
-
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
     }
 
 }

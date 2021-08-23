@@ -9,6 +9,7 @@ import com.ohapon.eshop.service.DefaultServiceFactory;
 import com.ohapon.eshop.web.filter.SecurityFilter;
 import com.ohapon.eshop.web.servlet.*;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -21,6 +22,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        /*
         PropertiesLoader propertiesLoader = new PropertiesLoader();
         Properties properties = propertiesLoader.load("application.properties");
 
@@ -88,6 +90,7 @@ public class Main {
         Server server = new Server(8080);
         server.setHandler(context);
         server.start();
+        */
 
     }
 }
