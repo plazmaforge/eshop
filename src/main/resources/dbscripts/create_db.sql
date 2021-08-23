@@ -10,4 +10,4 @@ CREATE TABLE product (
    id int,
    username varchar(100),
    password varchar(20),
-  );
+ );
