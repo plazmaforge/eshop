@@ -1,16 +1,16 @@
 package com.ohapon.eshop.db;
 
 import com.ohapon.eshop.PropertiesLoader;
-import com.ohapon.eshop.dao.jdbc.ConnectionFactory;
+import com.ohapon.eshop.dao.jdbc.DefaultDataSource;
 
 import java.io.*;
 import java.sql.*;
 
 public class DBInitializer {
 
-    private ConnectionFactory connectionFactory;
+    private DefaultDataSource connectionFactory;
 
-    public DBInitializer(ConnectionFactory connectionFactory) {
+    public DBInitializer(DefaultDataSource connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 

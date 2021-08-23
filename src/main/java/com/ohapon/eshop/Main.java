@@ -1,23 +1,5 @@
 package com.ohapon.eshop;
 
-import com.ohapon.eshop.dao.jdbc.ConnectionFactory;
-import com.ohapon.eshop.db.DBInitializer;
-import com.ohapon.eshop.service.ProductService;
-import com.ohapon.eshop.service.SecurityService;
-import com.ohapon.eshop.service.ServiceFactory;
-import com.ohapon.eshop.service.DefaultServiceFactory;
-import com.ohapon.eshop.web.filter.SecurityFilter;
-import com.ohapon.eshop.web.servlet.*;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.servlet.FilterHolder;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-
-import javax.servlet.DispatcherType;
-import java.util.EnumSet;
-import java.util.Properties;
-
 public class Main {
 
     public static void main(String[] args) throws Exception {

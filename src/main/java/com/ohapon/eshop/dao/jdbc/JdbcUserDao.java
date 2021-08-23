@@ -8,9 +8,9 @@ public class JdbcUserDao implements UserDao {
 
     private static final String FIND_QUERY = "SELECT id FROM user WHERE username = ? AND password = ?";
 
-    private ConnectionFactory connectionFactory;
-    public JdbcUserDao(ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
+    private DefaultDataSource dataSource;
+    public JdbcUserDao(DefaultDataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class JdbcUserDao implements UserDao {
     }
 
     private Connection getConnection() throws SQLException {
-        return connectionFactory.getConnection();
+        return dataSource.getConnection();
     }
 
 }

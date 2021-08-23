@@ -1,7 +1,7 @@
 package com.ohapon.eshop.service;
 
 import com.ohapon.eshop.PropertiesLoader;
-import com.ohapon.eshop.dao.jdbc.ConnectionFactory;
+import com.ohapon.eshop.dao.jdbc.DefaultDataSource;
 import com.ohapon.eshop.dao.jdbc.JdbcProductDao;
 import com.ohapon.eshop.dao.jdbc.JdbcUserDao;
 import com.ohapon.eshop.db.DBInitializer;
@@ -19,41 +19,20 @@ public class ServiceLocator {
         PropertiesLoader propertiesLoader = new PropertiesLoader();
         Properties properties = propertiesLoader.load("application.properties");
 
-        ConnectionFactory connectionFactory = new ConnectionFactory(properties);
+        DefaultDataSource dataSource = new DefaultDataSource(properties);
 
-        //ServiceFactory serviceFactory = new DefaultServiceFactory(connectionFactory);
-
-        DBInitializer dbInitializer = new DBInitializer(connectionFactory);
+        DBInitializer dbInitializer = new DBInitializer(dataSource);
         dbInitializer.init();
 
-        ProductService productService = new ProductService(new JdbcProductDao(connectionFactory));
+        ProductService productService = new ProductService(new JdbcProductDao(dataSource));
         addService(ProductService.class, productService);
 
-        UserService userService = new UserService(new JdbcUserDao(connectionFactory));
+        UserService userService = new UserService(new JdbcUserDao(dataSource));
         addService(UserService.class, userService);
 
         SecurityService securityService = new SecurityService(userService);
         addService(SecurityService.class, securityService);
 
-
-        ////
-
-        /*
-        SettingsLoader settingsLoader = new SettingsLoader("config.properties");
-
-        PGSimpleDataSource pgSimpleDataSource = new PGSimpleDataSource();
-        pgSimpleDataSource.setUrl(settingsLoader.getUrl());
-        pgSimpleDataSource.setPassword(settingsLoader.getPassword());
-        pgSimpleDataSource.setUser(settingsLoader.getUser());
-
-        // DAO
-        JdbcProductDao jdbcProductDao = new JdbcProductDao(pgSimpleDataSource);
-
-        ProductService productService = new ProductService();
-        productService.setProductDao(jdbcProductDao);
-
-        addService(ProductService.class, productService);
-        */
     }
 
     public static <T> T getService(Class<T> serviceType) {

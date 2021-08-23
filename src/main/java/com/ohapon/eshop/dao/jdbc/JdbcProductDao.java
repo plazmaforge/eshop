@@ -18,9 +18,9 @@ public class JdbcProductDao implements ProductDao {
 
     private static final ProductRowMapper ROW_MAPPER = new ProductRowMapper();
 
-    private ConnectionFactory connectionFactory;
-    public JdbcProductDao(ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
+    private DefaultDataSource dataSource;
+    public JdbcProductDao(DefaultDataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -144,7 +144,7 @@ public class JdbcProductDao implements ProductDao {
     }
 
     private Connection getConnection() throws SQLException {
-        return connectionFactory.getConnection();
+        return dataSource.getConnection();
     }
 
 }
