@@ -1,17 +1,17 @@
 package com.ohapon.eshop.db;
 
 import com.ohapon.eshop.PropertiesLoader;
-import com.ohapon.eshop.dao.jdbc.DefaultDataSource;
 
+import javax.sql.DataSource;
 import java.io.*;
 import java.sql.*;
 
 public class DBInitializer {
 
-    private DefaultDataSource connectionFactory;
+    private DataSource dataSource;
 
-    public DBInitializer(DefaultDataSource connectionFactory) {
-        this.connectionFactory = connectionFactory;
+    public DBInitializer(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     public void init() {
@@ -57,7 +57,7 @@ public class DBInitializer {
     }
 
     private Connection getConnection() throws ClassNotFoundException, SQLException {
-        return connectionFactory.getConnection();
+        return dataSource.getConnection();
     }
 
 }

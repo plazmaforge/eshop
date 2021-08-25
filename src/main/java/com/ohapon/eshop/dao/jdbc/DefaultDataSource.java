@@ -16,9 +16,9 @@ public class DefaultDataSource implements DataSource {
     private String password;
 
     public DefaultDataSource(Properties properties) {
-        this.url = properties.getProperty("url");
-        this.user = properties.getProperty("user");
-        this.password = properties.getProperty("password");
+        this.url = properties.getProperty("db.url");
+        this.user = properties.getProperty("db.user");
+        this.password = properties.getProperty("db.password");
     }
 
     @Override
