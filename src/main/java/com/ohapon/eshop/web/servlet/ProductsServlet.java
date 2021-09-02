@@ -25,7 +25,7 @@ public class ProductsServlet extends HttpServlet {
         Map<String, Object> parametersMap = new HashMap<>();
         parametersMap.put("products", products);
 
-        String page = pageGenerator.getPage("products.html", parametersMap);
+        String page = pageGenerator.getPage("product_list.html", parametersMap);
         res.getWriter().println(page);
     }
 

@@ -25,7 +25,7 @@ public class PageGeneratorTest {
         parametersMap.put("products", products);
 
         PageGenerator generator = new PageGenerator();
-        String response = generator.getPage("/products.html", parametersMap);
+        String response = generator.getPage("/product_list.html", parametersMap);
         assertNotNull(response);
     }
 
