@@ -32,7 +32,7 @@ public class SecurityService {
     }
 
     public void removeSession(String token) {
-        tokens.put(token, null);
+        tokens.remove(token);
     }
 
     public Session getSession(String token) {
