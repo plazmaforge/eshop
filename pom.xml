@@ -21,6 +21,48 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.3.0.M0</version>
             </plugin>
+
+            <!--
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>4.0.3</version>
+
+            </plugin>
+            -->
+
+            <plugin>
+
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>7.14.1</version>
+
+                <configuration>
+                    <!--<url>jdbc:h2:file:./target/eshop</url>-->
+                    <!--<url>jdbc:h2:mem:eshop</url>-->
+                    <url>jdbc:h2:file:~/eshop</url>
+                    <user>sa</user>
+                </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.4.184</version>
+                    </dependency>
+                </dependencies>
+
+                <!--
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hsqldb</groupId>
+                        <artifactId>hsqldb</artifactId>
+                         <version>2.0.0</version>
+                    </dependency>
+                </dependencies>
+                -->
+
+            </plugin>
         </plugins>
     </build>
 
@@ -83,10 +125,19 @@
             <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
+
+        <!--
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.0.0</version>
+        </dependency>
+        -->
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.184</version>
         </dependency>
 
         <dependency>

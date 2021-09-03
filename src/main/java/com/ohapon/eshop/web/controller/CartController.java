@@ -5,7 +5,6 @@ import com.ohapon.eshop.entity.Product;
 import com.ohapon.eshop.entity.Session;
 import com.ohapon.eshop.service.ProductService;
 import com.ohapon.eshop.service.SecurityService;
-import com.ohapon.eshop.service.ServiceLocator;
 import com.ohapon.eshop.web.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 public class CartController {
 
     public static final String MESSAGE_SESSION_EXPIRED = "Session expired";
-
-    // TODO: Stub for initialization
-    static {
-        ServiceLocator serviceLocator = new ServiceLocator();
-    }
 
     @Autowired
     private SecurityService securityService;
