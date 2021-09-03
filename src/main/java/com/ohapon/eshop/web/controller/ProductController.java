@@ -25,8 +25,7 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.POST, path = "search")
     public String productSearch(@RequestParam String text, Model model) {
-        model.addAttribute("products", productService.findByText(text));
-        return "product_list";
+        return "redirect:/products";
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "product/add")
@@ -40,52 +39,51 @@ public class ProductController {
                              @RequestParam String price,
                              Model model) {
 
-        double priceValue = Double.parseDouble(price);
+        double priceVal = Double.parseDouble(price);
 
-        Product product = new Product(name, description, priceValue);
+        Product product = new Product(name, description, priceVal);
         productService.add(product);
 
-        model.addAttribute("products", productService.findAll());
-        return "product_list";
+        return "redirect:/products";
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "product/remove")
     public String productRemove(@RequestParam String id,
                              Model model) {
 
-        long idValue = Long.valueOf(id);
+        long idVal = Long.valueOf(id);
 
-        productService.remove(idValue);
+        productService.remove(idVal);
 
-        model.addAttribute("products", productService.findAll());
-        return "product_list";
+        return "redirect:/products";
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "product/edit")
     public String productEdit(@RequestParam String id,
                                 Model model) {
 
-        long idValue = Long.valueOf(id);
+        long idVal = Long.valueOf(id);
 
-        Product product = productService.findById(idValue);
+        Product product = productService.findById(idVal);
 
         model.addAttribute("product", product);
         return "product_edit";
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "product/edit")
-    public String productEdit(@RequestParam String name,
+    public String productEdit(@RequestParam String id,
+                              @RequestParam String name,
                              @RequestParam String description,
                              @RequestParam String price,
                              Model model) {
 
-        double priceValue = Double.parseDouble(price);
+        long idVal = Long.valueOf(id);
+        double priceVal = Double.parseDouble(price);
 
-        Product product = new Product(name, description, priceValue);
+        Product product = new Product(idVal, name, description, priceVal);
         productService.update(product);
 
-        model.addAttribute("products", productService.findAll());
-        return "product_list";
+        return "redirect:/products";
     }
 
 }
