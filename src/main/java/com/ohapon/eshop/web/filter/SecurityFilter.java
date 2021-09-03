@@ -1,7 +1,6 @@
 package com.ohapon.eshop.web.filter;
 
 import com.ohapon.eshop.service.SecurityService;
-import com.ohapon.eshop.service.ServiceLocator;
 import com.ohapon.eshop.web.utils.WebUtils;
 
 import javax.servlet.*;
@@ -11,7 +10,7 @@ import java.io.IOException;
 
 public class SecurityFilter implements Filter {
 
-    private SecurityService securityService = ServiceLocator.getService(SecurityService.class);
+    private SecurityService securityService; //ServiceLocator.getService(SecurityService.class);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

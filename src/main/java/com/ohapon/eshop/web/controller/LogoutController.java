@@ -1,7 +1,6 @@
 package com.ohapon.eshop.web.controller;
 
 import com.ohapon.eshop.service.SecurityService;
-import com.ohapon.eshop.service.ServiceLocator;
 import com.ohapon.eshop.web.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
