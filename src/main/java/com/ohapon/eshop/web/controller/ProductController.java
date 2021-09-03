@@ -2,7 +2,7 @@ package com.ohapon.eshop.web.controller;
 
 import com.ohapon.eshop.entity.Product;
 import com.ohapon.eshop.service.ProductService;
-import com.ohapon.eshop.service.ServiceLocator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ProductController {
 
-    private ProductService productService = ServiceLocator.getService(ProductService.class);
+    @Autowired
+    private ProductService productService;
 
     @RequestMapping(method = RequestMethod.GET, path = {"/products","/"})
     public String productList(Model model) {

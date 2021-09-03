@@ -4,18 +4,18 @@ import com.ohapon.eshop.dao.UserDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 public class JdbcUserDao implements UserDao {
 
     private static final String FIND_QUERY = "SELECT id FROM user WHERE username = ? AND password = ?";
 
-    private DefaultDataSource dataSource;
+    private DataSource dataSource;
 
     private static Logger logger = LogManager.getLogger(JdbcUserDao.class);
 
-    public JdbcUserDao(DefaultDataSource dataSource) {
-        this.dataSource = dataSource;
+    public JdbcUserDao() {
     }
 
     @Override
@@ -35,6 +35,10 @@ public class JdbcUserDao implements UserDao {
 
     private Connection getConnection() throws SQLException {
         return dataSource.getConnection();
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
 }

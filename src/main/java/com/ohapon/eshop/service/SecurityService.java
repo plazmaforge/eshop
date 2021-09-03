@@ -10,8 +10,7 @@ public class SecurityService {
 
     private Map<String, Session> tokens = new HashMap<String, Session>();
 
-    public SecurityService(UserService userService) {
-        this.userService = userService;
+    public SecurityService() {
     }
 
     public boolean login(String username, String password) {
@@ -39,6 +38,7 @@ public class SecurityService {
         return tokens.get(token);
     }
 
-
-
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 }

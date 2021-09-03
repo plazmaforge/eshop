@@ -7,6 +7,7 @@ import com.ohapon.eshop.service.ProductService;
 import com.ohapon.eshop.service.SecurityService;
 import com.ohapon.eshop.service.ServiceLocator;
 import com.ohapon.eshop.web.utils.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +21,17 @@ public class CartController {
 
     public static final String MESSAGE_SESSION_EXPIRED = "Session expired";
 
-    private SecurityService securityService = ServiceLocator.getService(SecurityService.class);
-    private ProductService productService = ServiceLocator.getService(ProductService.class);
+    // TODO: Stub for initialization
+    static {
+        ServiceLocator serviceLocator = new ServiceLocator();
+    }
+
+    @Autowired
+    private SecurityService securityService;
+
+    @Autowired
+    private ProductService productService;
+
 
     @RequestMapping(method = RequestMethod.GET, path = "cart")
     public String cart(HttpServletRequest request,

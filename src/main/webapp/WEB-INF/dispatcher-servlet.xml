@@ -13,10 +13,34 @@
 
     <context:component-scan base-package="com.ohapon.eshop"/>
 
-    <!--
+    <bean id="dataSource" class="org.hsqldb.jdbc.JDBCDataSource">
+        <property name="database" value="jdbc:hsqldb:mem:eshop"/>
+        <property name="user" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
+
+
     <bean id="productService" class="com.ohapon.eshop.service.ProductService">
         <property name="productDao" ref="jdbcProductDao"/>
     </bean>
+
+    <bean id="userService" class="com.ohapon.eshop.service.UserService">
+        <property name="userDao" ref="jdbcUserDao"/>
+    </bean>
+
+    <bean id="securityService" class="com.ohapon.eshop.service.SecurityService">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="jdbcProductDao" class="com.ohapon.eshop.dao.jdbc.JdbcProductDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="jdbcUserDao" class="com.ohapon.eshop.dao.jdbc.JdbcUserDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--
 
     <bean id="userService" class="com.ohapon.eshop.service.UserService">
         <property name="userDao" ref="userDao"/>

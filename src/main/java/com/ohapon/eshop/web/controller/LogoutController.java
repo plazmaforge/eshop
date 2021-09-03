@@ -3,6 +3,7 @@ package com.ohapon.eshop.web.controller;
 import com.ohapon.eshop.service.SecurityService;
 import com.ohapon.eshop.service.ServiceLocator;
 import com.ohapon.eshop.web.utils.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class LogoutController {
 
-    private SecurityService securityService = ServiceLocator.getService(SecurityService.class);
+    @Autowired
+    private SecurityService securityService;
+
 
     @RequestMapping(method = RequestMethod.GET, path = "logout")
     public String logout(Model model,

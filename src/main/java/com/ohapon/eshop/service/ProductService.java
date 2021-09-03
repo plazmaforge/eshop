@@ -8,36 +8,35 @@ public class ProductService {
 
     private ProductDao productDao;
 
-    public ProductService(ProductDao productDao) {
-        this.productDao = productDao;
+    public ProductService() {
     }
 
     public List<Product> findAll() {
-        return getProductDao().findAll();
+        return productDao.findAll();
     }
 
     public List<Product> findByText(String text) {
-        return getProductDao().findByText(text);
+        return productDao.findByText(text);
     }
 
     public Product findById(Long productId) {
-        return getProductDao().findById(productId);
+        return productDao.findById(productId);
     }
 
     public void add(Product product) {
-        getProductDao().add(product);
+        productDao.add(product);
     }
 
     public void update(Product product) {
-        getProductDao().update(product);
+        productDao.update(product);
     }
 
     public void remove(Long productId) {
-        getProductDao().remove(productId);
+        productDao.remove(productId);
     }
 
-    private ProductDao getProductDao() {
-        return productDao;
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
     }
 
 }

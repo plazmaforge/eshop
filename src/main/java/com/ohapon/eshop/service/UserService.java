@@ -6,16 +6,14 @@ public class UserService {
 
     private UserDao userDao;
 
-    public UserService(UserDao userDao) {
-        this.userDao = userDao;
+    public UserService() {
     }
 
     boolean existsUser(String username, String password) {
-        return getUserDao().existsUser(username, password);
+        return userDao.existsUser(username, password);
     }
 
-    public UserDao getUserDao() {
-        return userDao;
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
-
 }

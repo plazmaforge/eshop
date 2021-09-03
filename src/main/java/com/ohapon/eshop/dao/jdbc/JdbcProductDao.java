@@ -5,6 +5,7 @@ import com.ohapon.eshop.entity.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +21,11 @@ public class JdbcProductDao implements ProductDao {
 
     private static final ProductRowMapper ROW_MAPPER = new ProductRowMapper();
 
-    private DefaultDataSource dataSource;
+    private DataSource dataSource;
 
     private static Logger logger = LogManager.getLogger(JdbcProductDao.class);
 
-
-    public JdbcProductDao(DefaultDataSource dataSource) {
-        this.dataSource = dataSource;
+    public JdbcProductDao() {
     }
 
     @Override
@@ -173,6 +172,10 @@ public class JdbcProductDao implements ProductDao {
 
     private Connection getConnection() throws SQLException {
         return dataSource.getConnection();
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
 }

@@ -2,8 +2,6 @@ package com.ohapon.eshop.service;
 
 import com.ohapon.eshop.PropertiesLoader;
 import com.ohapon.eshop.dao.jdbc.DefaultDataSource;
-import com.ohapon.eshop.dao.jdbc.JdbcProductDao;
-import com.ohapon.eshop.dao.jdbc.JdbcUserDao;
 import com.ohapon.eshop.db.DBInitializer;
 
 import java.util.HashMap;
@@ -23,15 +21,6 @@ public class ServiceLocator {
 
         DBInitializer dbInitializer = new DBInitializer(dataSource);
         dbInitializer.init();
-
-        ProductService productService = new ProductService(new JdbcProductDao(dataSource));
-        addService(ProductService.class, productService);
-
-        UserService userService = new UserService(new JdbcUserDao(dataSource));
-        addService(UserService.class, userService);
-
-        SecurityService securityService = new SecurityService(userService);
-        addService(SecurityService.class, securityService);
 
     }
 
