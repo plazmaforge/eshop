@@ -27,6 +27,12 @@ public class SecurityService {
         return addSession(token);
     }
 
+    public Session addSession(User user) {
+        Session session = addSession();
+        session.setUser(user);
+        return session;
+    }
+
     protected Session addSession(String token) {
         Session session = new Session(token);
         tokens.put(token, session);

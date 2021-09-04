@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class LoginController {
 
+    public static final String MESSAGE_INVALID_LOGIN = "Invalid user name or password";
+
     @Autowired
     private SecurityService securityService;
 
@@ -30,12 +32,12 @@ public class LoginController {
 
         User user = securityService.login(username, password);
         if (user != null) {
-            Session session = securityService.addSession();
+            Session session = securityService.addSession(user);
             WebUtils.addToken(response, session.getToken());
             return "redirect:/products";
         }
 
-        model.addAttribute("message", "Invalid user name or password");
+        model.addAttribute("message", MESSAGE_INVALID_LOGIN);
         return "message";
     }
 

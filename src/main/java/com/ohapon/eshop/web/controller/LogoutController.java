@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class LogoutController {
 
+    public static final String MESSAGE_USER_NOT_LOGIN = "User is not login";
+
     @Autowired
     private SecurityService securityService;
 
@@ -30,7 +32,7 @@ public class LogoutController {
             return "redirect:/products";
         }
 
-        model.addAttribute("message", "User is not login");
+        model.addAttribute("message", MESSAGE_USER_NOT_LOGIN);
         return "message";
     }
 
