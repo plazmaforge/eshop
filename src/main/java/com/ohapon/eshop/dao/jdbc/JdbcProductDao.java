@@ -7,8 +7,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class JdbcProductDao implements ProductDao {
 
@@ -21,132 +22,57 @@ public class JdbcProductDao implements ProductDao {
 
     private static final ProductRowMapper ROW_MAPPER = new ProductRowMapper();
 
-    private DataSource dataSource;
-
     private static Logger logger = LogManager.getLogger(JdbcProductDao.class);
+
+    private JdbcTemplate jdbcTemplate;
 
     public JdbcProductDao() {
     }
 
     @Override
     public List<Product> findAll() {
+        return jdbcTemplate.query(FIND_ALL_QUERY, ROW_MAPPER);
+    }
 
-        try (Connection connection = getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(FIND_ALL_QUERY)) {
-            List<Product> products = new ArrayList<>();
-
-            while (resultSet.next()) {
-                Product product = ROW_MAPPER.mapRow(resultSet);
-                products.add(product);
-            }
-            return products;
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new RuntimeException("Cannot get products from db", e);
-        }
-
+    @Override
+    public Product findById(Long id) {
+        return jdbcTemplate.queryForObject(FIND_BY_ID_QUERY, new Object[]{id}, ROW_MAPPER);
     }
 
     @Override
     public List<Product> findByText(String text) {
-
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_BY_TEXT_QUERY)) {
-            List<Product> products = new ArrayList<>();
-
-            statement.setString(1, "%" + text.toUpperCase() + "%");
-            statement.setString(2, "%" + text.toUpperCase() + "%");
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    Product product = ROW_MAPPER.mapRow(resultSet);
-                    products.add(product);
-                }
-            }
-
-            return products;
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new RuntimeException("Cannot get products from db", e);
-        }
-
-    }
-
-    @Override
-    public Product findById(Long productId) {
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(FIND_BY_ID_QUERY)) {
-            statement.setLong(1, productId);
-            try (ResultSet resultSet = statement.executeQuery();) {
-                if (resultSet.next()) {
-                    Product product = ROW_MAPPER.mapRow(resultSet);
-                    return product;
-                }
-                throw new SQLException("Product not found: id=" + productId);
-            }
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new RuntimeException("Cannot get product from db", e);
-        }
+        String likeText = "%" +text.toUpperCase() + "%";
+        return jdbcTemplate.query(FIND_BY_TEXT_QUERY, new Object[]{likeText, likeText}, ROW_MAPPER);
     }
 
     @Override
     public void add(Product product) {
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
+        long id = generateId(jdbcTemplate.getDataSource());
+        product.setId(id);
 
-            long id = generateId(connection);
-            product.setId(id);
-
-            statement.setLong(1, product.getId());
-            statement.setString(2, product.getName());
-            statement.setString(3, product.getDescription());
-            statement.setDouble(4, product.getPrice());
-            statement.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
-
-            statement.execute();
-
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new RuntimeException("Cannot add product to db", e);
-        }
+        jdbcTemplate.update(INSERT_QUERY,
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                new Timestamp(System.currentTimeMillis()));
     }
 
     @Override
     public void update(Product product) {
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
-
-            statement.setString(1, product.getName());
-            statement.setString(2, product.getDescription());
-            statement.setDouble(3, product.getPrice());
-            statement.setLong(4, product.getId());
-
-            statement.execute();
-
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new RuntimeException("Cannot update product in db: productId = " + product.getId(), e);
-        }
+        jdbcTemplate.update(UPDATE_QUERY,
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getId());
     }
 
     @Override
-    public void remove(Long productId) {
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
-
-            statement.setLong(1, productId);
-
-            statement.execute();
-
-        } catch (SQLException e) {
-            logger.error(e);
-            throw new RuntimeException("Cannot delete product from db: productId = " + productId, e);
-        }
+    public void remove(Long id) {
+        jdbcTemplate.update(DELETE_QUERY, id);
     }
 
-    private long generateId(Connection connection) {
+    private long generateId(DataSource dataSource) {
 
         //long id = (long) (Math.random() * 10);
 
@@ -157,7 +83,7 @@ public class JdbcProductDao implements ProductDao {
         //    product.setId(id);
         //}
 
-        try (Statement statement = connection.createStatement();
+        try (Statement statement = dataSource.getConnection().createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT MAX(ID) + 1 FROM product")) {
             if (resultSet.next()) {
                 return resultSet.getInt(1);
@@ -170,12 +96,8 @@ public class JdbcProductDao implements ProductDao {
 
     }
 
-    private Connection getConnection() throws SQLException {
-        return dataSource.getConnection();
-    }
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
 }

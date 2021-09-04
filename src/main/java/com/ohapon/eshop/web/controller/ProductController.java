@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class ProductController {
 
@@ -26,7 +28,8 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.POST, path = "search")
     public String productSearch(@RequestParam String text, Model model) {
-        return "redirect:/products";
+        model.addAttribute("products", productService.findByText(text));
+        return "product_list";
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "product/add")

@@ -29,7 +29,7 @@ public class ProductMapperTest {
 
 
         ProductRowMapper rowMapper = new ProductRowMapper();
-        Product product = rowMapper.mapRow(resultSet);
+        Product product = rowMapper.mapRow(resultSet, 0);
 
         assertNotNull(product);
 

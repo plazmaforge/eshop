@@ -45,11 +45,11 @@
     </bean>
 
     <bean id="jdbcProductDao" class="com.ohapon.eshop.dao.jdbc.JdbcProductDao">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
     <bean id="jdbcUserDao" class="com.ohapon.eshop.dao.jdbc.JdbcUserDao">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
@@ -63,15 +63,9 @@
         <property name="templateLoaderPath" value="classpath:/templates"/>
     </bean>
 
-    <!--
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:/application.properties"/>
-    </bean>
-
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource" />
     </bean>
-    -->
 
     <mvc:interceptors>
         <mvc:interceptor>
@@ -80,14 +74,6 @@
             <mvc:mapping path="/cart"/>
             <bean class="com.ohapon.eshop.web.security.SecurityInterceptor"/>
         </mvc:interceptor>
-
-        <!--
-        <mvc:interceptor>
-            <mvc:mapping path="/product/*"/>
-            <bean class="com.ohapon.eshop.web.security.SecurityInterceptor"/>
-        </mvc:interceptor>
-        -->
-
     </mvc:interceptors>
 
     <mvc:annotation-driven/>
