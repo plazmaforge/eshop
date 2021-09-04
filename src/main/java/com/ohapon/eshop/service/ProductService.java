@@ -15,12 +15,12 @@ public class ProductService {
         return productDao.findAll();
     }
 
-    public List<Product> findByText(String text) {
-        return productDao.findByText(text);
+    public Product findById(Long idd) {
+        return productDao.findById(idd);
     }
 
-    public Product findById(Long productId) {
-        return productDao.findById(productId);
+    public List<Product> findByText(String text) {
+        return productDao.findByText(text);
     }
 
     public void add(Product product) {
@@ -31,8 +31,8 @@ public class ProductService {
         productDao.update(product);
     }
 
-    public void remove(Long productId) {
-        productDao.remove(productId);
+    public void remove(Long id) {
+        productDao.remove(id);
     }
 
     public void setProductDao(ProductDao productDao) {

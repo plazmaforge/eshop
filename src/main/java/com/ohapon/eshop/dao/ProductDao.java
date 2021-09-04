@@ -7,14 +7,14 @@ public interface ProductDao {
 
     List<Product> findAll();
 
-    List<Product> findByText(String text);
+    Product findById(Long id);
 
-    Product findById(Long productId);
+    List<Product> findByText(String text);
 
     void add(Product product);
 
     void update(Product product);
 
-    void remove(Long productId);
+    void remove(Long id);
 
 }
