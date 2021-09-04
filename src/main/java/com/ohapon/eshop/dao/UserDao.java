@@ -1,7 +1,9 @@
 package com.ohapon.eshop.dao;
 
+import com.ohapon.eshop.entity.User;
+
 public interface UserDao {
 
-    boolean existsUser(String username, String password);
+    User login(String username, String password);
 
 }

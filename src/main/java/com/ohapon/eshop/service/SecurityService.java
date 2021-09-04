@@ -1,6 +1,7 @@
 package com.ohapon.eshop.service;
 
 import com.ohapon.eshop.entity.Session;
+import com.ohapon.eshop.entity.User;
 
 import java.util.*;
 
@@ -13,21 +14,23 @@ public class SecurityService {
     public SecurityService() {
     }
 
-    public boolean login(String username, String password) {
-        return userService.existsUser(username, password);
+    public User login(String username, String password) {
+        return userService.login(username, password);
     }
 
     public boolean existsToken(String token) {
         return tokens.containsKey(token);
     }
 
-    public String generateToken() {
-        String token = UUID.randomUUID().toString();
-        return token;
+    public Session addSession() {
+        String token = generateToken();
+        return addSession(token);
     }
 
-    public void addSession(String token, Session session) {
+    protected Session addSession(String token) {
+        Session session = new Session(token);
         tokens.put(token, session);
+        return session;
     }
 
     public void removeSession(String token) {
@@ -41,4 +44,10 @@ public class SecurityService {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
+    protected String generateToken() {
+        String token = UUID.randomUUID().toString();
+        return token;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.ohapon.eshop.web.controller;
 
 import com.ohapon.eshop.entity.Session;
+import com.ohapon.eshop.entity.User;
 import com.ohapon.eshop.service.SecurityService;
 import com.ohapon.eshop.web.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,10 @@ public class LoginController {
                         Model model,
                         HttpServletResponse response) {
 
-        if (securityService.login(username, password)) {
-            String token = securityService.generateToken();
-            Session session = new Session();
-            securityService.addSession(token, session);
-            WebUtils.addToken(response, token);
+        User user = securityService.login(username, password);
+        if (user != null) {
+            Session session = securityService.addSession();
+            WebUtils.addToken(response, session.getToken());
             return "redirect:/products";
         }
 

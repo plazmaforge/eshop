@@ -20,9 +20,8 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
-    public boolean existsUser(String username, String password) {
-        User user =  jdbcTemplate.queryForObject(FIND_QUERY, new Object[]{username, password}, ROW_MAPPER);
-        return user != null;
+    public User login(String username, String password) {
+        return jdbcTemplate.queryForObject(FIND_QUERY, new Object[]{username, password}, ROW_MAPPER);
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
