@@ -10,7 +10,9 @@ import java.sql.*;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class JdbcProductDao implements ProductDao {
 
     private static final String FIND_ALL_QUERY = "SELECT id, name, description, price, created_date FROM product ORDER BY name";
@@ -26,7 +28,8 @@ public class JdbcProductDao implements ProductDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcProductDao() {
+    public JdbcProductDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
@@ -94,10 +97,6 @@ public class JdbcProductDao implements ProductDao {
             throw new RuntimeException("Cannot generate id for Product", e);
         }
 
-    }
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
     }
 
 }

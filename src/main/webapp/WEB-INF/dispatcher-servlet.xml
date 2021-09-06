@@ -17,39 +17,10 @@
         <property name="location" value="classpath:/application.properties"/>
     </bean>
 
-
-    <!--
-    <bean id="dataSource" class="org.hsqldb.jdbc.JDBCDataSource">
-        <property name="database" value="${db.url}"/>
-        <property name="user" value="${db.user}"/>
-        <property name="password" value="${db.password}"/>
-    </bean>
-    -->
-
     <bean id="dataSource" class="org.h2.jdbcx.JdbcDataSource">
         <property name="url" value="${db.url}"/>
         <property name="user" value="${db.user}"/>
         <property name="password" value="${db.password}"/>
-    </bean>
-
-    <bean id="productService" class="com.ohapon.eshop.service.ProductService">
-        <property name="productDao" ref="jdbcProductDao"/>
-    </bean>
-
-    <bean id="userService" class="com.ohapon.eshop.service.UserService">
-        <property name="userDao" ref="jdbcUserDao"/>
-    </bean>
-
-    <bean id="securityService" class="com.ohapon.eshop.service.SecurityService">
-        <property name="userService" ref="userService"/>
-    </bean>
-
-    <bean id="jdbcProductDao" class="com.ohapon.eshop.dao.jdbc.JdbcProductDao">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
-    </bean>
-
-    <bean id="jdbcUserDao" class="com.ohapon.eshop.dao.jdbc.JdbcUserDao">
-        <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
@@ -75,6 +46,36 @@
             <bean class="com.ohapon.eshop.web.security.SecurityInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
+    <!--
+    <bean id="dataSource" class="org.hsqldb.jdbc.JDBCDataSource">
+        <property name="database" value="${db.url}"/>
+        <property name="user" value="${db.user}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+    -->
+
+    <!--
+    <bean id="productService" class="com.ohapon.eshop.service.ProductService">
+        <property name="productDao" ref="jdbcProductDao"/>
+    </bean>
+
+    <bean id="userService" class="com.ohapon.eshop.service.UserService">
+        <property name="userDao" ref="jdbcUserDao"/>
+    </bean>
+
+    <bean id="securityService" class="com.ohapon.eshop.service.SecurityService">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="jdbcProductDao" class="com.ohapon.eshop.dao.jdbc.JdbcProductDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="jdbcUserDao" class="com.ohapon.eshop.dao.jdbc.JdbcUserDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    -->
 
     <mvc:annotation-driven/>
 

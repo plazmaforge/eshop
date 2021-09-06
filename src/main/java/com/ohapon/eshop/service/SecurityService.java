@@ -2,16 +2,19 @@ package com.ohapon.eshop.service;
 
 import com.ohapon.eshop.entity.Session;
 import com.ohapon.eshop.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class SecurityService {
 
     private UserService userService;
 
     private Map<String, Session> tokens = new HashMap<String, Session>();
 
-    public SecurityService() {
+    public SecurityService(UserService userService) {
+        this.userService = userService;
     }
 
     public User login(String username, String password) {
@@ -45,10 +48,6 @@ public class SecurityService {
 
     public Session getSession(String token) {
         return tokens.get(token);
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
     }
 
     protected String generateToken() {

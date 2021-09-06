@@ -2,13 +2,17 @@ package com.ohapon.eshop.service;
 
 import com.ohapon.eshop.dao.ProductDao;
 import com.ohapon.eshop.entity.Product;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class ProductService {
 
     private ProductDao productDao;
 
-    public ProductService() {
+    public ProductService(ProductDao productDao) {
+        this.productDao = productDao;
     }
 
     public List<Product> findAll() {
@@ -33,10 +37,6 @@ public class ProductService {
 
     public void remove(Long id) {
         productDao.remove(id);
-    }
-
-    public void setProductDao(ProductDao productDao) {
-        this.productDao = productDao;
     }
 
 }
