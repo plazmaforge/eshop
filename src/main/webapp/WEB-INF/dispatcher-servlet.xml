@@ -43,7 +43,7 @@
             <mvc:mapping path="/product/*"/>
             <mvc:mapping path="/cart/*"/>
             <mvc:mapping path="/cart"/>
-            <bean class="com.ohapon.eshop.web.security.SecurityInterceptor"/>
+            <bean class="plazma.ups.eshop.web.security.SecurityInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
@@ -56,23 +56,23 @@
     -->
 
     <!--
-    <bean id="productService" class="com.ohapon.eshop.service.ProductService">
+    <bean id="productService" class="plazma.ups.eshop.service.ProductService">
         <property name="productDao" ref="jdbcProductDao"/>
     </bean>
 
-    <bean id="userService" class="com.ohapon.eshop.service.UserService">
+    <bean id="userService" class="plazma.ups.eshop.service.UserService">
         <property name="userDao" ref="jdbcUserDao"/>
     </bean>
 
-    <bean id="securityService" class="com.ohapon.eshop.service.SecurityService">
+    <bean id="securityService" class="plazma.ups.eshop.service.SecurityService">
         <property name="userService" ref="userService"/>
     </bean>
 
-    <bean id="jdbcProductDao" class="com.ohapon.eshop.dao.jdbc.JdbcProductDao">
+    <bean id="jdbcProductDao" class="plazma.ups.eshop.dao.jdbc.JdbcProductDao">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
-    <bean id="jdbcUserDao" class="com.ohapon.eshop.dao.jdbc.JdbcUserDao">
+    <bean id="jdbcUserDao" class="plazma.ups.eshop.dao.jdbc.JdbcUserDao">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
     -->
